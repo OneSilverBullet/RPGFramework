@@ -4,6 +4,9 @@
 #include "AuraPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "InputAction.h"
+#include "InputMappingContext.h"
+#include "InputActionValue.h"
 
 AAuraPlayerController::AAuraPlayerController()
 {
