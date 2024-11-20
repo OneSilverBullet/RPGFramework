@@ -13,6 +13,47 @@ AAuraPlayerController::AAuraPlayerController()
 	bReplicates = true;
 }
 
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+	CursorTrace();
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+	FHitResult HitResult;
+	GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+	if (!HitResult.bBlockingHit) return;
+
+	lastActor = currentActor;
+	currentActor = Cast<IEnemiesInterface>(HitResult.GetActor());
+
+	if (lastActor == nullptr) {
+		if (currentActor != nullptr) {
+			currentActor->Highlight();
+		}
+		else {
+			return;
+		}
+	}
+	else {
+		if (currentActor == nullptr) {
+			lastActor->UnHighlight();
+		}
+		else {
+			if (lastActor != currentActor) {
+				lastActor->UnHighlight();
+				currentActor->Highlight();
+			}
+			else
+			{
+				//pass
+			}
+		}
+	}
+}
+
+
 void AAuraPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -62,3 +103,4 @@ void AAuraPlayerController::Move(const FInputActionValue& Value)
 	}
 
 }
+
