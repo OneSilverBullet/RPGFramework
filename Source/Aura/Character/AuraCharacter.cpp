@@ -16,3 +16,8 @@ AAuraCharacter::AAuraCharacter()
 	bUseControllerRotationYaw = false;	
 
 }
+
+UAbilitySystemComponent* AAuraCharacter::GetAbilitySystemComponent() const
+{
+	return nullptr;
+}
